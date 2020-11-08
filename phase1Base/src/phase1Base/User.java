@@ -56,7 +56,7 @@ public class User {
             msg.valueOf(randMsg);
             ks.valueOf(randKs);
             hashBase.valueOf(randHashbase);
-        }
+        
     }
 
     User(BigInteger msg, BigInteger ks, BigInteger hashBase) {
