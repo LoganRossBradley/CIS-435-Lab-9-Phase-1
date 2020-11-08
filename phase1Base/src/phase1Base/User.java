@@ -9,7 +9,6 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import static phase1Base.Common.*;
 import phase1Base.Common.Role;
-import java.math.Random;
 
 /**
  *
@@ -35,10 +34,13 @@ public class User {
             ks = BigInteger.valueOf(5);
             hashBase = BigInteger.valueOf(13);
         } else {
-            // If not using fixed data, generate random values
-            msg = (int) (Math.random())*17;
-            ks = (int) (Math.random())*5;
-            randHashBase = (int) (Math.random()*13);
+            // James: If not using fixed data, generate random values
+            Integer randMsg = (int) (java.lang.Math.random()*17+1);
+            Integer randKs = (int) (java.lang.Math.random()*5+1);
+            Integer randHashbase = (int) (Math.random()*13+1);
+            msg.valueOf(randMsg);
+            ks.valueOf(randKs);
+            hashBase.valueOf(randHashbase);
         }
 
     }
