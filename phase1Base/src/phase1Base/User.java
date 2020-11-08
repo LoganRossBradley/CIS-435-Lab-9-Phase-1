@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import static phase1Base.Common.*;
 import phase1Base.Common.Role;
+import java.util.Random;
 
 /**
  *
@@ -35,12 +36,13 @@ public class User {
             hashBase = BigInteger.valueOf(13);
         } else {
             // James: If not using fixed data, generate random values
-            Integer randMsg = (int) (java.lang.Math.random()*17+1);
-            Integer randKs = (int) (java.lang.Math.random()*5+1);
-            Integer randHashbase = (int) (Math.random()*13+1);
-            msg.valueOf(randMsg);
-            ks.valueOf(randKs);
-            hashBase.valueOf(randHashbase);
+            Random r = new Random();
+            int randMsg = r.nextInt((100-1) + 1) + 1;
+            int randKs = r.nextInt((10-1) + 1) + 1;
+            int randHashbase = r.nextInt((50-1) + 1) + 1;
+            msg = BigInteger.valueOf(randMsg);
+            ks = BigInteger.valueOf(randKs);
+            hashBase = BigInteger.valueOf(randHashbase);
         }
 
     }
@@ -50,12 +52,13 @@ public class User {
         this.role = role;
 
         // James: If not using fixed data, generate random values
-            Integer randMsg = (int) (java.lang.Math.random()*17+1);
-            Integer randKs = (int) (java.lang.Math.random()*5+1);
-            Integer randHashbase = (int) (Math.random()*13+1);
-            msg.valueOf(randMsg);
-            ks.valueOf(randKs);
-            hashBase.valueOf(randHashbase);
+            Random r = new Random();
+            int randMsg = r.nextInt((100-1) + 1) + 1;
+            int randKs = r.nextInt((10-1) + 1) + 1;
+            int randHashbase = r.nextInt((50-1) + 1) + 1;
+            msg = BigInteger.valueOf(randMsg);
+            ks = BigInteger.valueOf(randKs);
+            hashBase = BigInteger.valueOf(randHashbase);
         
     }
 

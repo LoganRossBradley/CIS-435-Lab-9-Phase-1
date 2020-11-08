@@ -12,6 +12,27 @@ public class TestCase1 {
 
     public static void main(String[] args) {
 
+        //SENDER Steps:        
+        // Hash Message
+        // Encrypt that hash value using n and d
+        // Combine message and encypted hash value in array
+        // Generate session key
+        // Encrypt the session key with RECEIVER's public key
+        // Encrypt combined message with session key
+        // Combine the previous message with the encrypted session key
+        // Send to RECEIVER
+        
+        //RECEIVER Steps:
+        // Split the session key and message
+        // Decrypt the session key with RECEIVER's private key
+        // Decrypt the message with the session key
+        // Split the message and signature
+        // Hash the message
+        // Decrypt the signature with SENDER's public key
+        // Compare the hashes
+        
+        // There's also CBC and a shift cipher in this process somewhere
+        
         String case01 = "CASE #0_1 | Initialize Sender (Random Data) ";
         System.out.println(caseSeperator("*", case01));
 
@@ -75,20 +96,20 @@ public class TestCase1 {
 
         step++;
         System.out.println("\n--- Step #" + step + ": START - Sender generates\t" + padding);
-
-        //TODO
+        Role sendRole = Role.SENDER;
+        User send = new User(name, sendRole, fixedData);
         System.out.println("--- Step #" + step + ": END of this Step \t\t" + padding + "\n");
-        return null;
+        return send;
     }
 
     public static User createReceiver(String name) {
 
         step = 1;
         System.out.println("\n--- Step #" + step + ": START - Receiver generates\t" + padding);
-
-        //TODO
+        Role recvRole = Role.RECEIVER;
+        User recv = new User(name, recvRole);
         System.out.println("--- Step #" + step + ": END of this Step \t\t" + padding + "\n");
-        return null;
+        return recv;
     }
 
     public static void useCryptography(User user) {
