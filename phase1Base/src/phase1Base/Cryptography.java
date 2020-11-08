@@ -15,13 +15,14 @@ public class Cryptography {
 
         System.out.println(indent2 + "Run Cryptography --------");
     
-        //TODO
-
+        rsa = new RSA ();
+        System.out.println(indent2 + rsa.toString());
+    
     }
 
    
     // Use the mapping provided in our ICE, and you can modify the header of this method
-    static public BigInteger CBC() {
+    static public BigInteger CBC(BigInteger msg, BigInteger hashBase) {
      
         //TODO
         return BigInteger.ZERO;
@@ -34,20 +35,24 @@ public class Cryptography {
     }
 
     static public BigInteger shift(BigInteger msg, BigInteger ks) {
-        //TODO
-        return null;
+        /*TODO*/
+        return msg.add(ks);
     }
 
     //(n, e)
     public void getPublicKey(BigInteger[] pubKey) {
        
-        //TODO
-
+        pubKey[0] = rsa.getN();
+        pubKey[1] = rsa.getE();
+     
     }
 
     // (n, d)
     public void getPrivateKey(BigInteger[] privateKey) {
-       //TODO
+       
+       privateKey[0]= rsa.getN();
+       privateKey[1]= rsa.getD();
+       
     }
 
 }
