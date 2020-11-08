@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import static phase1Base.Common.*;
 import phase1Base.Common.Role;
+import java.math.Random;
 
 /**
  *
@@ -28,11 +29,16 @@ public class User {
         this.name = name;
         this.role = role;
 
-        //TO BE COMPLETED
+        
         if (fixedData) {
             msg = BigInteger.valueOf(17);
             ks = BigInteger.valueOf(5);
             hashBase = BigInteger.valueOf(13);
+        } else {
+            // If not using fixed data, generate random values
+            msg = (int) (Math.random())*17;
+            ks = (int) (Math.random())*5;
+            randHashBase = (int) (Math.random()*13);
         }
 
     }
