@@ -49,7 +49,14 @@ public class User {
         this.name = name;
         this.role = role;
 
-        //TO BE COMPLETED
+        // James: If not using fixed data, generate random values
+            Integer randMsg = (int) (java.lang.Math.random()*17+1);
+            Integer randKs = (int) (java.lang.Math.random()*5+1);
+            Integer randHashbase = (int) (Math.random()*13+1);
+            msg.valueOf(randMsg);
+            ks.valueOf(randKs);
+            hashBase.valueOf(randHashbase);
+        }
     }
 
     User(BigInteger msg, BigInteger ks, BigInteger hashBase) {
