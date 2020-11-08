@@ -18,20 +18,20 @@ public class TestCase1 {
         // Combine message and encypted hash value in array
         // Generate session key
         // Encrypt the session key with RECEIVER's public key
-        // Encrypt combined message with session key
+        // Encrypt combined message with session key (shift cipher [and/or CBC?])
         // Combine the previous message with the encrypted session key
         // Send to RECEIVER
         
         //RECEIVER Steps:
         // Split the session key and message
         // Decrypt the session key with RECEIVER's private key
-        // Decrypt the message with the session key
+        // Decrypt the message with the session key (undo shift cipher [and/or CBC?])
         // Split the message and signature
         // Hash the message
         // Decrypt the signature with SENDER's public key
         // Compare the hashes
         
-        // There's also CBC and a shift cipher in this process somewhere
+        // There's also CBC in this process somewhere
         
         String case01 = "CASE #0_1 | Initialize Sender (Random Data) ";
         System.out.println(caseSeperator("*", case01));
@@ -122,10 +122,25 @@ public class TestCase1 {
     }
 
     //Suppose Bob wants to send a secret message to Alice using public key cryptography. 
+    //Pa+(M)
     public static BigInteger receiverCase1(User receiver, BigInteger cipher) {
 
-        //TODO
-        return null;
+        //Retrieve public key information
+        BigInteger n = null, e = null;
+        BigInteger[] pubKey = receiver.getPubKey();
+        if(pubKey[0] != null){
+            n = pubKey[0];
+        }
+        if(pubKey[1] != null){
+            e = pubKey[1];
+        }
+        
+        //Encrypt with RSA
+        //c=m^e mod n
+        BigInteger encryptedCipher = cipher.pow(e.intValue());
+        encryptedCipher = encryptedCipher.mod(n);
+        
+        return encryptedCipher;
 
     }
 
