@@ -2,6 +2,7 @@ package phase1Base;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Set;
 import static phase1Base.Common.*;
 
 /**
@@ -85,6 +86,15 @@ public class TestCase1 {
         System.out.println("\n--- Step #" + step + "-" + subStep + ": Gets RSA keys" + "------------");
 
         //TODO
+        // James: Create BigInt arrays to hold key values, fill it with the one that crypto generates
+        // and pass it to the user
+        BigInteger[] key1 = new BigInteger[2];
+        crypto.getPublicKey(key1);
+        user.setPubKey(key1);
+        BigInteger[] key2 = new BigInteger[2];
+        crypto.getPrivateKey(key2);
+        user.setPrivateKey(key2);
+        
         System.out.println(indent2 + "pubKey: " + Arrays.toString(user.getPubKey()));
         System.out.println(indent2 + "privateKey: " + Arrays.toString(user.getPrivateKey()));
 
