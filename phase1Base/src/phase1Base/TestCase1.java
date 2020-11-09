@@ -85,7 +85,6 @@ public class TestCase1 {
         subStep++;
         System.out.println("\n--- Step #" + step + "-" + subStep + ": Gets RSA keys" + "------------");
 
-        //TODO
         // James: Create BigInt arrays to hold key values, fill it with the one that crypto generates
         // and pass it to the user
         BigInteger[] key1 = new BigInteger[2];
@@ -108,6 +107,8 @@ public class TestCase1 {
         System.out.println("\n--- Step #" + step + ": START - Sender generates\t" + padding);
         Role sendRole = Role.SENDER;
         User send = new User(name, sendRole, fixedData);
+        send.toString();
+        send.printDetails();
         System.out.println("--- Step #" + step + ": END of this Step \t\t" + padding + "\n");
         return send;
     }
@@ -129,6 +130,7 @@ public class TestCase1 {
         System.out.println("\n--- Step #" + step + "-" + subStep + ": Run RSA " + "------------");
 
         //TODO
+        
     }
 
     //Suppose Bob wants to send a secret message to Alice using public key cryptography. 
@@ -161,7 +163,33 @@ public class TestCase1 {
         System.out.println(indent1 + "Sub-Step #" + subStep + ": Initial case");
         System.out.println(indent2 + sender.toString());
 
-        //TODO
+        // Maybe this should be moved to senderOperationsCase1()? And what should
+        // be returned here if the encrypted "packet" is an array holding 3 values?
+        Cryptography crypto = new Cryptography();
+        BigInteger msgHash = crypto.hash(sender.getMsg(), sender.getHashBase());
+        // HASH NEEDS TO BY ENCRYPTED
+        BigInteger[] combine = new BigInteger[2];
+        combine[0] = sender.getMsg();
+        combine[1] = msgHash;
+        // SESSION KEY NEEDS TO BE ENCRYPTED
+        BigInteger eSessionKey = sender.getKs();
+        combine[0] = crypto.shift(combine[0], sender.getKs());
+        combine[1] = crypto.shift(combine[1], sender.getKs());
+        BigInteger[] combine2 = new BigInteger[3];
+        combine2[0] = combine[0];
+        combine2[1] = combine[1];
+        combine2[2] = eSessionKey;
+        receiver.setKs(sender.getKs());
+        
+        // Hash Message
+        // Encrypt that hash value using n and d
+        // Combine message and encypted hash value in array
+        // Generate session key
+        // Encrypt the session key with RECEIVER's public key
+        // Encrypt combined message with session key (shift cipher [and/or CBC?])
+        // Combine the previous message with the encrypted session key
+        // Send to RECEIVER
+        
         return null;
 
     }
@@ -171,6 +199,7 @@ public class TestCase1 {
         System.out.println("\n" + indent2 + "------------------Start | senderOperationsCase1 ----------------");
 
         //TODO
+        System.out.println(indent2 + "------------------ End | senderOperationsCase1 ----------------\n");
         return null;
 
     }
