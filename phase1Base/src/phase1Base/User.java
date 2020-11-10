@@ -30,19 +30,24 @@ public class User {
         this.role = role;
 
         
-        if (fixedData) {
-            msg = BigInteger.valueOf(17);
-            ks = BigInteger.valueOf(5);
-            hashBase = BigInteger.valueOf(13);
-        } else {
-            // James: If not using fixed data, generate random values
+        if (fixedData && role.equals(Role.SENDER) ) {
+            this.msg = BigInteger.valueOf(17);
+            this.ks = BigInteger.valueOf(5);
+            this.hashBase = BigInteger.valueOf(13);
+        } else  if (!fixedData && role.equals(Role.SENDER) ){
+            // James: If not using fixed data for a , generate random values
             Random r = new Random();
             int randMsg = r.nextInt((100-1) + 1) + 1;
             int randKs = r.nextInt((10-1) + 1) + 1;
             int randHashbase = r.nextInt((50-1) + 1) + 1;
-            msg = BigInteger.valueOf(randMsg);
-            ks = BigInteger.valueOf(randKs);
-            hashBase = BigInteger.valueOf(randHashbase);
+            this.msg = BigInteger.valueOf(randMsg);
+            this.ks = BigInteger.valueOf(randKs);
+            this.hashBase = BigInteger.valueOf(randHashbase);
+        } else if (!fixedData && !role.equals(Role.SENDER))
+        {
+            this.msg = null;
+            this.ks = null;
+            this.hashBase = null;
         }
 
     }
@@ -52,13 +57,21 @@ public class User {
         this.role = role;
 
         // James: If not using fixed data, generate random values
+        if (role.equals(Role.SENDER)){
             Random r = new Random();
             int randMsg = r.nextInt((100-1) + 1) + 1;
             int randKs = r.nextInt((10-1) + 1) + 1;
             int randHashbase = r.nextInt((50-1) + 1) + 1;
-            msg = BigInteger.valueOf(randMsg);
-            ks = BigInteger.valueOf(randKs);
-            hashBase = BigInteger.valueOf(randHashbase);
+            this.msg = BigInteger.valueOf(randMsg);
+            this.ks = BigInteger.valueOf(randKs);
+            this.hashBase = BigInteger.valueOf(randHashbase);
+        }
+        else
+        {
+            this.msg = null;
+            this.ks = null;
+            this.hashBase = null;
+        }
         
     }
 

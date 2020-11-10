@@ -32,7 +32,8 @@ public class TestCase1 {
         // Decrypt the signature with SENDER's public key
         // Compare the hashes
         
-        // There's also CBC in this process somewhere
+        // Hash = hash function
+        // Symmetric encryption = shift function
         
         String case01 = "CASE #0_1 | Initialize Sender (Random Data) ";
         System.out.println(caseSeperator("*", case01));
@@ -52,7 +53,7 @@ public class TestCase1 {
 
         System.out.println("==> Receiver's Status | " + bobReceiver.toString() + "\n");
 
-        String case1 = "CASE #1: Suppose Sender wants to send a secret message to Receiver  using public key cryptography";
+        String case1 = "CASE #1: Suppose Sender wants to send a secret message to Receiver using public key cryptography";
 
         System.out.println(caseSeperator("*", case1));
 
@@ -60,7 +61,6 @@ public class TestCase1 {
         System.out.println(caseSeperator("+", senderCase1));
 
         BigInteger cipher = senderCase1(amySender, bobReceiver);
-
         System.out.println("==> Sender sends out cipher = | " + cipher + "\n");
         String receiverCase1 = "Receiver Operations";
         System.out.println(caseSeperator("+", receiverCase1));
@@ -162,35 +162,10 @@ public class TestCase1 {
 
         System.out.println(indent1 + "Sub-Step #" + subStep + ": Initial case");
         System.out.println(indent2 + sender.toString());
-
-        // Maybe this should be moved to senderOperationsCase1()? And what should
-        // be returned here if the encrypted "packet" is an array holding 3 values?
-        Cryptography crypto = new Cryptography();
-        BigInteger msgHash = crypto.hash(sender.getMsg(), sender.getHashBase());
-        // HASH NEEDS TO BY ENCRYPTED
-        BigInteger[] combine = new BigInteger[2];
-        combine[0] = sender.getMsg();
-        combine[1] = msgHash;
-        // SESSION KEY NEEDS TO BE ENCRYPTED
-        BigInteger eSessionKey = sender.getKs();
-        combine[0] = crypto.shift(combine[0], sender.getKs());
-        combine[1] = crypto.shift(combine[1], sender.getKs());
-        BigInteger[] combine2 = new BigInteger[3];
-        combine2[0] = combine[0];
-        combine2[1] = combine[1];
-        combine2[2] = eSessionKey;
-        receiver.setKs(sender.getKs());
+        receiver.setMsg(senderOperationsCase1(sender, receiver));
         
-        // Hash Message
-        // Encrypt that hash value using n and d
-        // Combine message and encypted hash value in array
-        // Generate session key
-        // Encrypt the session key with RECEIVER's public key
-        // Encrypt combined message with session key (shift cipher [and/or CBC?])
-        // Combine the previous message with the encrypted session key
-        // Send to RECEIVER
         
-        return null;
+        return receiver.getMsg();
 
     }
 
@@ -198,9 +173,14 @@ public class TestCase1 {
 
         System.out.println("\n" + indent2 + "------------------Start | senderOperationsCase1 ----------------");
 
-        //TODO
+        BigInteger eMsg = sender.getMsg();
+        BigInteger[] rPub = new BigInteger[2];
+        rPub = receiver.getPubKey();
+        eMsg = eMsg.pow(rPub[1].intValue());
+        eMsg = eMsg.mod(rPub[0]);
+        System.out.println("===> Encrypted Message: " + eMsg);
         System.out.println(indent2 + "------------------ End | senderOperationsCase1 ----------------\n");
-        return null;
+        return eMsg;
 
     }
 
@@ -208,9 +188,14 @@ public class TestCase1 {
 
         System.out.println("\n" + indent2 + "------------------ Start | receiverOperationsCase1 ----------------");
 
-        //TODO
+        BigInteger[] rPriv = new BigInteger[2];
+        rPriv = receiver.getPrivateKey();
+        BigInteger plain;
+        plain = receiver.getMsg().pow(rPriv[1].intValue());
+        plain = plain.mod(rPriv[0]);
+        
         System.out.println(indent2 + "------------------ End | receiverOperationsCase1 ----------------\n");
-        return null;
+        return plain;
     }
 
 }
