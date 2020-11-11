@@ -15,9 +15,7 @@ public class Cryptography {
 
         System.out.println(indent2 + "Run Cryptography --------");
     
-        rsa = new RSA ();
-        //TODO
-        
+        rsa = new RSA ();        
         System.out.println(indent2 + rsa.toString());
     
     }
