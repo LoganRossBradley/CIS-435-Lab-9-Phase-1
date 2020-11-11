@@ -40,7 +40,8 @@ public class TestCase3 {
 
         System.out.println("==> Receiver's Status | " + bobReceiver.toString() + "\n");
 
-        String case1 = "CASE #1: Suppose Sender wants to send a secret message to Receiver using a shift cipher";
+        String case1 = "CASE #3: Suppose Sender wants to send a secret message to Receiver and the receiver wants to be sure that "
+            +"the message was indeed the original one";
 
         System.out.println(caseSeperator("*", case1));
 
