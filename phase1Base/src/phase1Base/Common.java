@@ -1,8 +1,10 @@
 package phase1Base;
 
 /**
- *
- * @author yun
+ * @author #04 | Moom Firdous 
+ * @author #10 | Meridith Kcoh 
+ * @author #12 | James Mckean
+ * @author #15 | Logan Ross
  */
 public class Common {
 
