@@ -4,8 +4,10 @@ import java.math.BigInteger;
 import static phase1Base.Common.*;
 
 /**
- *
- * @author yun
+ * @author #04 | Moom Firdous 
+ * @author #10 | Meridith Kcoh 
+ * @author #12 | James Mckean
+ * @author #15 | Logan Ross
  */
 public class Cryptography {
 
