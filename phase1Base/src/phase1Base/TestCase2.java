@@ -15,27 +15,6 @@ import static phase1Base.TestingMethods.*;
 public class TestCase2 {
 
     public static void main(String[] args) {
-
-        //SENDER Steps:        
-        // Hash Message
-        // Encrypt that hash value using n and d
-        // Combine message and encypted hash value in array
-        // Generate session key
-        // Encrypt the session key with RECEIVER's public key
-        // Encrypt combined message with session key (shift cipher [and/or CBC?])
-        // Combine the previous message with the encrypted session key
-        // Send to RECEIVER
-        
-        //RECEIVER Steps:
-        // Split the session key and message
-        // Decrypt the session key with RECEIVER's private key
-        // Decrypt the message with the session key (undo shift cipher [and/or CBC?])
-        // Split the message and signature
-        // Hash the message
-        // Decrypt the signature with SENDER's public key
-        // Compare the hashes
-        
-        // There's also CBC in this process somewhere
         
         String case01 = "CASE #0_1 | Initialize Sender (Random Data) ";
         System.out.println(caseSeperator("*", case01));
@@ -55,22 +34,23 @@ public class TestCase2 {
 
         System.out.println("==> Receiver's Status | " + bobReceiver.toString() + "\n");
 
-      //  String case1 = "CASE #1: Suppose Sender wants to send a secret message to Receiver  using public key cryptography";
+        String case2 = "CASE #2: Using public-key cryptography, suppose Sender wants to send a message to Receiver and"
+                + "Receiver wants to be sure that the message was indeed sent by the Sender";
 
-        //System.out.println(caseSeperator("*", case1));
+        System.out.println(caseSeperator("*", case2));
 
-       // String senderCase1 = "Sender Operations";
-       // System.out.println(caseSeperator("+", senderCase1));
+        String senderCase1 = "Sender Operations";
+        System.out.println(caseSeperator("+", senderCase1));
 
-        //BigInteger cipher = senderCase1(amySender, bobReceiver);
+        BigInteger cipher = senderCase2(amySender, bobReceiver);
 
-      //  System.out.println("==> Sender sends out cipher = | " + cipher + "\n");
-       // String receiverCase1 = "Receiver Operations";
-       // System.out.println(caseSeperator("+", receiverCase1));
+        System.out.println("==> Sender sends out cipher = | " + cipher + "\n");
+        String receiverCase2 = "Receiver Operations";
+        System.out.println(caseSeperator("+", receiverCase2));
 
-       // BigInteger msg = receiverCase1(bobReceiver, cipher);
+        BigInteger msg = receiverCase1(bobReceiver, cipher);
 
-      //  System.out.println("==> Receiver receives and decrypt msg = | " + msg + "\n");
+        System.out.println("==> Receiver receives and decrypt msg = | " + msg + "\n");
 
     }
 

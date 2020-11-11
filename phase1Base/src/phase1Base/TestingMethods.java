@@ -160,5 +160,87 @@ public class TestingMethods {
         System.out.println(indent2 + "------------------ End | receiverOperationsCase1 ----------------\n");
         return decryptedCipher;
     }
+    
+    public static BigInteger senderCase2(User sender, User receiver) {
+
+        int subStep = 0;
+
+        System.out.println(indent1 + "Sub-Step #" + subStep + ": Initial case");
+        System.out.println(indent2 + sender.toString());
+        subStep++;
+        System.out.println(indent1 + "Sub-Step #" + subStep + ": Sender should encrypt the message with own"+
+            " private key and send the encrypted message");
+        System.out.println(indent1 + "Sub-Step #" + subStep + ": Sender should Pa-(Msg) -> cipher");
+
+        BigInteger eMsg = senderOperationsCase2(sender, receiver); 
+        
+        return eMsg;
+    }
+
+    private static BigInteger senderOperationsCase2(User sender, User receiver) {
+
+        System.out.println("\n" + indent2 + "------------------Start | senderOperationsCase2 ----------------");
+        System.out.println(indent2 + "receiverPubKeyN = " + receiver.pubKey[0]);
+        System.out.println(indent2 + "receiverPubKeyE = " + receiver.pubKey[1]);
+
+        BigInteger eMsg = sender.getMsg();
+        BigInteger[] rPub = new BigInteger[2];
+        rPub = sender.getPrivateKey();
+        eMsg = eMsg.pow(rPub[1].intValue());     
+        eMsg = eMsg.mod(rPub[0]);
+        System.out.println(indent2 + "cipher = " + eMsg);
+        System.out.println(indent2 + "------------------ End | senderOperationsCase2 ----------------\n");
+        return eMsg;
+
+    }
+    
+    public static BigInteger receiverCase2(User receiver, BigInteger cipher) {
+        int subStep = 0;
+        System.out.println(indent1 + "Sub-Step #" + subStep + ": Initial case");
+        System.out.println(indent2 + receiver.toString());
+        System.out.println(indent2 + "Receiver receives cipher = " + cipher+"\n");
+
+        subStep++;
+        System.out.println(indent1 + "Sub-Step #" + subStep + ": Reciever should decrypt the message with sender's"+
+            " public key");
+        System.out.println(indent1 + "Sub-Step #" + subStep + ": Reciever should Pa-(cipher) = Msg");
+
+        return receiverOperationsCase2(receiver, cipher);
+
+
+    }
+    
+    private static BigInteger receiverOperationsCase2(User receiver, BigInteger cipher) {
+
+        System.out.println("\n" + indent2 + "------------------ Start | receiverOperationsCase1 ----------------");
+
+        //BigInteger[] rPriv = new BigInteger[2];
+        //rPriv = receiver.getPrivateKey();
+        //BigInteger plain;
+        //plain = receiver.getMsg().pow(rPriv[1].intValue());
+        //plain = plain.mod(rPriv[0]);
+        
+        //Retrieve public key information
+        //BigInteger n = BigInteger.valueOf(35), d = BigInteger.valueOf(29);
+        BigInteger n=null, d=null;
+        BigInteger[] privKey = receiver.getPrivateKey();
+        if(privKey[0] != null){
+            n = privKey[0];
+        }
+        if(privKey[1] != null){
+            d = privKey[1];
+        }
+        
+        //Decrypt with RSA
+        //m=c^d mod n
+        BigInteger decryptedCipher = cipher.pow(d.intValue());
+        decryptedCipher = decryptedCipher.mod(n);
+        receiver.setMsg(decryptedCipher);
+
+        System.out.println(indent2 + "decryptedMsg = "+ decryptedCipher);
+        System.out.println(indent2 + receiver.toString());
+        System.out.println(indent2 + "------------------ End | receiverOperationsCase1 ----------------\n");
+        return decryptedCipher;
+    }
 
 }
