@@ -17,7 +17,7 @@ import static phase1Base.TestingMethods.*;
  * @author #12 | James Mckean
  * @author #15 | Logan Ross
  */
-public class TestCase3 {
+public class TestCase4 {
     public static void main(String[] args) {
 
         
