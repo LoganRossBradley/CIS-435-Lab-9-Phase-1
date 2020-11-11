@@ -50,6 +50,7 @@ public class TestingMethods {
         System.out.println("\n--- Step #" + step + ": START - Sender generates\t" + padding);
         Role sendRole = Role.SENDER;
         User send = new User(name, sendRole, fixedData);
+        System.out.print("   | "+ send.toString()+ "\n");
         send.toString();
         send.printDetails();
         System.out.println("--- Step #" + step + ": END of this Step \t\t" + padding + "\n");
@@ -62,6 +63,7 @@ public class TestingMethods {
         System.out.println("\n--- Step #" + step + ": START - Receiver generates\t" + padding);
         Role recvRole = Role.RECEIVER;
         User recv = new User(name, recvRole);
+        System.out.print("   | "+ recv.toString()+ "\n");
         recv.toString();
         recv.printDetails();
         System.out.println("--- Step #" + step + ": END of this Step \t\t" + padding + "\n");
