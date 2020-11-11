@@ -4,8 +4,10 @@ import java.math.BigInteger;
 import java.util.Random;
 
 /**
- *
- * @author yunwang
+ * @author #04 | Moom Firdous 
+ * @author #10 | Meridith Kcoh 
+ * @author #12 | James Mckean
+ * @author #15 | Logan Ross
  */
 public class RSA {
 
