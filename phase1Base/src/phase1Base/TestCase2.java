@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Set;
 import static phase1Base.Common.*;
+import static phase1Base.TestingMethods.*;
 
 /**
  * @author #04 | Moom Firdous 
@@ -73,63 +74,6 @@ public class TestCase2 {
 
     }
 
-    public static void getRSAKeys(User user) {
-
-        step++;
-        System.out.println("\n--- Step #" + step + ": START - getRSAKeys()\t" + padding);
-
-        int subStep = 1;
-
-        System.out.println("--- Step #" + step + "-" + subStep + ": Run RSA " + "------------");
-
-        Cryptography crypto = new Cryptography();
-
-        subStep++;
-        System.out.println("\n--- Step #" + step + "-" + subStep + ": Gets RSA keys" + "------------");
-
-        
-        BigInteger[] key1 = new BigInteger[2];
-        crypto.getPublicKey(key1);
-        user.setPubKey(key1);
-        BigInteger[] key2 = new BigInteger[2];
-        crypto.getPrivateKey(key2);
-        user.setPrivateKey(key2);
-        
-        System.out.println(indent2 + "pubKey: " + Arrays.toString(user.getPubKey()));
-        System.out.println(indent2 + "privateKey: " + Arrays.toString(user.getPrivateKey()));
-
-        System.out.println("--- Step #" + step + ": END of getRSAKeys() \t" + padding + "\n");
-
-    }
-
-    public static User createSender(String name, boolean fixedData) {
-
-        step++;
-        System.out.println("\n--- Step #" + step + ": START - Sender generates\t" + padding);
-        Role sendRole = Role.SENDER;
-        User send = new User(name, sendRole, fixedData);
-       
-      System.out.print("   | "+ send.toString()+ "\n");
-        send.toString();
-        send.printDetails();
-        System.out.println("--- Step #" + step + ": END of this Step \t\t" + padding + "\n");
-        return send;
-    }
-
-    public static User createReceiver(String name) {
-
-        step = 1;
-        System.out.println("\n--- Step #" + step + ": START - Receiver generates\t" + padding);
-        Role recvRole = Role.RECEIVER;
-        User recv = new User(name, recvRole);
-        System.out.print("   | "+ recv.toString()+ "\n");
-        recv.toString();
-        recv.printDetails();
-        System.out.println("--- Step #" + step + ": END of this Step \t\t" + padding + "\n");
-        return recv;
-    }
-
-    
-    }
+}
 
    

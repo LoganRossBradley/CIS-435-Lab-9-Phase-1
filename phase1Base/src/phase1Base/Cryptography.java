@@ -22,8 +22,7 @@ public class Cryptography {
 
    
     // Use the mapping provided in our ICE, and you can modify the header of this method
-    static public BigInteger CBC(BigInteger msg, BigInteger hashBase) {
-     
+    static public BigInteger CBC(BigInteger msg, BigInteger hashBase) {   
         //TODO
         return BigInteger.ZERO;
     }
@@ -35,7 +34,6 @@ public class Cryptography {
     }
 
     static public BigInteger shift(BigInteger msg, BigInteger ks) {
-        /*TODO*/
         return msg.add(ks);
     }
 

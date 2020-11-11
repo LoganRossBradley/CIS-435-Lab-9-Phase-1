@@ -9,7 +9,7 @@ public class Common {
     public static int step = 0;
     public static String indent1 = "   | ";
     public static String indent2 = "       |";
-    public static String padding = "| ----------------------------- ";
+    public static String padding = "\n| ----------------------------- ";
 
     public static enum Role {
         SENDER, RECEIVER
