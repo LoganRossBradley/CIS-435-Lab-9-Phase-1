@@ -21,12 +21,11 @@ import static phase1Base.Cryptography.*;
 public class TestCase3 {
     public static void main(String[] args) {
 
-        
         String case01 = "CASE #0_1 | Initialize Sender (Random Data) ";
         System.out.println(caseSeperator("*", case01));
 
         // true for using fixed msg, ks, and hash value, other wise random data
-        boolean fixedData = true;
+        boolean fixedData = false;
         User amySender = createSender("Amy", fixedData);
         getRSAKeys(amySender);
         System.out.println("==> Sender's Status | " + amySender.toString() + "\n");
@@ -36,7 +35,8 @@ public class TestCase3 {
         System.out.println(caseSeperator("*", case02));
 
         User bobReceiver = createReceiver("Bob");
-        getRSAKeys(bobReceiver);
+        bobReceiver.setKs(amySender.getKs());
+        bobReceiver.setHashBase(amySender.getHashBase());
 
         System.out.println("==> Receiver's Status | " + bobReceiver.toString() + "\n");
 
@@ -48,22 +48,15 @@ public class TestCase3 {
         System.out.println(caseSeperator("+", senderCase1));
 
         //add shift cipher
-        BigInteger shiftCipher = shift(amySender.getMsg(), amySender.getKs());
-        System.out.println("Msg after shift: " + shiftCipher);
+        BigInteger msg = shift(amySender.getMsg(), amySender.getKs());
+        System.out.println("Msg with shift cipher: " + msg);
 
         //hash shifted cipher
-        BigInteger hash = hash(shiftCipher, amySender.getHashBase());
+        BigInteger hash = hash(msg, amySender.getHashBase());
         System.out.println("Hashed message: " + hash);
 
-        BigInteger cipher = senderCase1(amySender, bobReceiver);
-        System.out.println("==> Sender sends out cipher = | " + cipher + "\n");
-        String receiverCase1 = "Receiver Operations";
-        System.out.println(caseSeperator("+", receiverCase1));
-
-        BigInteger msg = receiverCase1(bobReceiver, cipher);
-
         //bob checks hash
-        if(hash == hash(msg, amySender.getHashBase()))
+        if(hash.equals(hash(msg, amySender.getHashBase())))
         {
             System.out.println(indent1 + "Hash is valid");
         }
