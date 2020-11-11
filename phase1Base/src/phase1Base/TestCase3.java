@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import static phase1Base.Common.*;
 import static phase1Base.TestingMethods.*;
+import static phase1Base.Cryptography.*;
 
 
 /**
@@ -25,7 +26,7 @@ public class TestCase3 {
         System.out.println(caseSeperator("*", case01));
 
         // true for using fixed msg, ks, and hash value, other wise random data
-        boolean fixedData = false;
+        boolean fixedData = true;
         User amySender = createSender("Amy", fixedData);
         getRSAKeys(amySender);
         System.out.println("==> Sender's Status | " + amySender.toString() + "\n");
@@ -39,12 +40,20 @@ public class TestCase3 {
 
         System.out.println("==> Receiver's Status | " + bobReceiver.toString() + "\n");
 
-        String case1 = "CASE #1: Suppose Sender wants to send a secret message to Receiver using public key cryptography";
+        String case1 = "CASE #1: Suppose Sender wants to send a secret message to Receiver using a shift cipher";
 
         System.out.println(caseSeperator("*", case1));
 
         String senderCase1 = "Sender Operations";
         System.out.println(caseSeperator("+", senderCase1));
+
+        //add shift cipher
+        BigInteger shiftCipher = shift(amySender.getMsg(), amySender.getKs());
+        System.out.println("Msg after shift: " + shiftCipher);
+
+        //hash shifted cipher
+        BigInteger hash = hash(shiftCipher, amySender.getHashBase());
+        System.out.println("Hashed message: " + hash);
 
         BigInteger cipher = senderCase1(amySender, bobReceiver);
         System.out.println("==> Sender sends out cipher = | " + cipher + "\n");
@@ -52,6 +61,19 @@ public class TestCase3 {
         System.out.println(caseSeperator("+", receiverCase1));
 
         BigInteger msg = receiverCase1(bobReceiver, cipher);
+
+        //bob checks hash
+        if(hash == hash(msg, amySender.getHashBase()))
+        {
+            System.out.println(indent1 + "Hash is valid");
+        }
+        else
+        {
+            System.out.println(indent1 + "Hash is not valid");
+        }
+        //remove shift cipher
+        msg = shift(msg, BigInteger.valueOf(-1).multiply(amySender.getKs()));
+        System.out.println(indent1 + "Msg after removing shift cipher: " + msg);
 
         System.out.println("==> Receiver receives and decrypt msg = | " + msg + "\n");
 
