@@ -39,7 +39,7 @@ public class TestCase1 {
         System.out.println(caseSeperator("*", case01));
 
         // true for using fixed msg, ks, and hash value, other wise random data
-        boolean fixedData = false;
+        boolean fixedData = true;
         User amySender = createSender("Amy", fixedData);
         getRSAKeys(amySender);
         System.out.println("==> Sender's Status | " + amySender.toString() + "\n");
@@ -94,6 +94,7 @@ public class TestCase1 {
         crypto.getPrivateKey(key2);
         user.setPrivateKey(key2);
         
+        
         System.out.println(indent2 + "pubKey: " + Arrays.toString(user.getPubKey()));
         System.out.println(indent2 + "privateKey: " + Arrays.toString(user.getPrivateKey()));
 
@@ -129,7 +130,7 @@ public class TestCase1 {
 
         System.out.println("\n--- Step #" + step + "-" + subStep + ": Run RSA " + "------------");
 
-        //TODO
+        //Not used
         
     }
 
@@ -138,21 +139,21 @@ public class TestCase1 {
     public static BigInteger receiverCase1(User receiver, BigInteger cipher) {
 
         //Retrieve public key information
-        BigInteger n = null, e = null;
-        BigInteger[] pubKey = receiver.getPubKey();
-        if(pubKey[0] != null){
-            n = pubKey[0];
+        BigInteger n = BigInteger.valueOf(35), d = BigInteger.valueOf(29);
+        /*BigInteger[] privKey = receiver.getPrivateKey();
+        if(privKey[0] != null){
+            n = privKey[0];
         }
-        if(pubKey[1] != null){
-            e = pubKey[1];
+        if(privKey[1] != null){
+            d = privKey[1];
         }
+        */
+        //Decrypt with RSA
+        //m=c^d mod n
+        BigInteger decryptedCipher = cipher.pow(d.intValue());
+        decryptedCipher = decryptedCipher.mod(n);
         
-        //Encrypt with RSA
-        //c=m^e mod n
-        BigInteger encryptedCipher = cipher.pow(e.intValue());
-        encryptedCipher = encryptedCipher.mod(n);
-        
-        return encryptedCipher;
+        return decryptedCipher;
 
     }
 
@@ -162,7 +163,8 @@ public class TestCase1 {
 
         System.out.println(indent1 + "Sub-Step #" + subStep + ": Initial case");
         System.out.println(indent2 + sender.toString());
-        receiver.setMsg(senderOperationsCase1(sender, receiver));
+        BigInteger eMsg = senderOperationsCase1(sender, receiver);
+        receiver.setMsg(eMsg);
         
         
         return receiver.getMsg();
@@ -176,7 +178,7 @@ public class TestCase1 {
         BigInteger eMsg = sender.getMsg();
         BigInteger[] rPub = new BigInteger[2];
         rPub = receiver.getPubKey();
-        eMsg = eMsg.pow(rPub[1].intValue());
+        eMsg = eMsg.pow(rPub[1].intValue());     
         eMsg = eMsg.mod(rPub[0]);
         System.out.println("===> Encrypted Message: " + eMsg);
         System.out.println(indent2 + "------------------ End | senderOperationsCase1 ----------------\n");
